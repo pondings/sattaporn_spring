@@ -19,10 +19,6 @@ public class WebMVCConfigure extends WebMvcConfigurerAdapter  {
 
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/").setViewName("forward:/index.html");
-		registry.addViewController("/admin").setViewName("forward:/management");
-		registry.addViewController("/course-type").setViewName("forward:/course_type/course_type.html");
-		registry.addViewController("/course-type/create").setViewName("forward:/course_type/create/course_type_create.html");
 	}
 
 	@Override
