@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sattaporn.dto.CustomerDTO;
 import com.sattaporn.model.Customer;
 import com.sattaporn.service.CustomerService;
 
@@ -31,7 +32,6 @@ public class CustomerRestcontroller {
 	@RequestMapping(path = "/create" , method = RequestMethod.POST)
 	public ResponseEntity<?> createCustomer(@RequestBody Customer customer){
 		System.out.println("[PONDINGS] Start method createCustomer");
-		System.out.println("[PONDINGS] Create customer = " + customer.toString());
 		Customer createdCustomer = customerService.createCustomer(customer);
 		return new ResponseEntity<Customer>(createdCustomer, HttpStatus.OK);
 	}
@@ -39,7 +39,6 @@ public class CustomerRestcontroller {
 	@RequestMapping(path = "/update" , method = RequestMethod.PUT)
 	public ResponseEntity<?> updateCustomer(@RequestBody Customer customer){
 		System.out.println("[PONDINGS] Start method updateCustomer");
-		System.out.println("[PONDINGS] Update customer = " + customer.toString());
 		Customer updatedCustomer = customerService.updateCustomer(customer);
 		return new ResponseEntity<Customer>(updatedCustomer,HttpStatus.OK);
 	}
@@ -47,7 +46,6 @@ public class CustomerRestcontroller {
 	@RequestMapping(path = "/remove/{id}" , method = RequestMethod.DELETE)
 	public ResponseEntity<?> removeCustomer(@PathVariable int id){
 		System.out.println("[PONDINGS] Start method removeCustomer");
-		System.out.println("[PONDINGS] Remove customer id = " + id);
 		try {
 			customerService.removeCustomer(id);
 			return new ResponseEntity<String>("Remove Customer " + id , HttpStatus.OK);
@@ -59,9 +57,8 @@ public class CustomerRestcontroller {
 	}
 	
 	@RequestMapping(path = "/find" , method = RequestMethod.POST)
-	public ResponseEntity<List<Customer>> findCustomer(@RequestBody Customer customer){
+	public ResponseEntity<List<Customer>> findCustomer(@RequestBody CustomerDTO customer){
 		System.out.println("[PONDINGS] Start method findCustomer");
-		System.out.println("[PONDINGS] Find customer = " + customer.toString());
 		List<Customer> customerList = customerService.findCustomer(customer);
 		return new ResponseEntity<List<Customer>>(customerList,HttpStatus.OK);
 	}

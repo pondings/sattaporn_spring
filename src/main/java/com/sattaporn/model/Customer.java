@@ -3,6 +3,8 @@ package com.sattaporn.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -44,7 +46,7 @@ public class Customer implements java.io.Serializable {
 	}
 
 	@Id
-
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	public int getId() {
 		return this.id;
@@ -112,6 +114,12 @@ public class Customer implements java.io.Serializable {
 	public String toString() {
 		return "Customer [id=" + id + ", name=" + name + ", lname=" + lname + ", address=" + address + ", workAddress="
 				+ workAddress + ", sirName=" + sirName + ", fullName=" + fullName + "]";
+	}
+	
+	public void toUpperCase(){
+		name = name != null ? name.toUpperCase() : "";
+		lname = lname != null ? lname.toUpperCase() : "";
+		fullName = fullName != null ? fullName.toUpperCase() : "";
 	}
 	
 	
