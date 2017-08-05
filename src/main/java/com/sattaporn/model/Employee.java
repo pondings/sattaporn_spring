@@ -13,6 +13,10 @@ import javax.persistence.Table;
 @Table(name = "employee", schema = "public")
 public class Employee implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private String name;
 	private String lname;
@@ -79,6 +83,12 @@ public class Employee implements java.io.Serializable {
 
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
+	}
+
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", name=" + name + ", lname=" + lname + ", sirName=" + sirName + ", fullName="
+				+ fullName + "]";
 	}
 
 }

@@ -13,6 +13,10 @@ import javax.persistence.Table;
 @Table(name = "customer", schema = "public")
 public class Customer implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private String name;
 	private String lname;
@@ -103,5 +107,13 @@ public class Customer implements java.io.Serializable {
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
 	}
+
+	@Override
+	public String toString() {
+		return "Customer [id=" + id + ", name=" + name + ", lname=" + lname + ", address=" + address + ", workAddress="
+				+ workAddress + ", sirName=" + sirName + ", fullName=" + fullName + "]";
+	}
+	
+	
 
 }
