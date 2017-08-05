@@ -6,6 +6,8 @@ import com.sattaporn.model.Customer;
 
 public interface CustomerService {
 
+	public List<Customer> findAll();
+	
 	public Customer createCustomer(Customer customer);
 	
 	public List<Customer> findCustomer(Customer customer);
