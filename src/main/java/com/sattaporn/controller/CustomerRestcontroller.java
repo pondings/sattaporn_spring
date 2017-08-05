@@ -1,6 +1,10 @@
 package com.sattaporn.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sattaporn.model.Customer;
 import com.sattaporn.service.CustomerService;
-import com.spring.pondingz.Model.CourseContent;
 
 @RestController
 @RequestMapping("customer")
@@ -19,32 +22,48 @@ public class CustomerRestcontroller {
 	CustomerService customerService ;
 	
 	@RequestMapping(path = "/showAll" , method = RequestMethod.GET)
-	public void showAll(){
+	public ResponseEntity<?> showAll(){
 		System.out.println("[PONDINGS] Show all method work !");
+		List<Customer> customerList = customerService.findAll();
+		return new ResponseEntity<List<Customer>>(customerList, HttpStatus.OK);
 	}
 	
 	@RequestMapping(path = "/create" , method = RequestMethod.POST)
-	public Customer createCustomer(@RequestBody Customer customer){
+	public ResponseEntity<?> createCustomer(@RequestBody Customer customer){
 		System.out.println("[PONDINGS] Start method createCustomer");
-		return null;
+		System.out.println("[PONDINGS] Create customer = " + customer.toString());
+		Customer createdCustomer = customerService.createCustomer(customer);
+		return new ResponseEntity<Customer>(createdCustomer, HttpStatus.OK);
 	}
 	
 	@RequestMapping(path = "/update" , method = RequestMethod.PUT)
-	public Customer updateCustomer(@RequestBody Customer customer){
+	public ResponseEntity<?> updateCustomer(@RequestBody Customer customer){
 		System.out.println("[PONDINGS] Start method updateCustomer");
-		return null;
+		System.out.println("[PONDINGS] Update customer = " + customer.toString());
+		Customer updatedCustomer = customerService.updateCustomer(customer);
+		return new ResponseEntity<Customer>(updatedCustomer,HttpStatus.OK);
 	}
 	
 	@RequestMapping(path = "/remove/{id}" , method = RequestMethod.DELETE)
-	public Customer removeCustomer(@PathVariable int id){
+	public ResponseEntity<?> removeCustomer(@PathVariable int id){
 		System.out.println("[PONDINGS] Start method removeCustomer");
-		return null;
+		System.out.println("[PONDINGS] Remove customer id = " + id);
+		try {
+			customerService.removeCustomer(id);
+			return new ResponseEntity<String>("Remove Customer " + id , HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("[PONDNGS] Error on remove method.");
+			return new ResponseEntity<String>("Cant remove customer id " + id , HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 	
 	@RequestMapping(path = "/find" , method = RequestMethod.POST)
-	public Customer findCustomer(@RequestBody Customer customer){
+	public ResponseEntity<List<Customer>> findCustomer(@RequestBody Customer customer){
 		System.out.println("[PONDINGS] Start method findCustomer");
-		return null;
+		System.out.println("[PONDINGS] Find customer = " + customer.toString());
+		List<Customer> customerList = customerService.findCustomer(customer);
+		return new ResponseEntity<List<Customer>>(customerList,HttpStatus.OK);
 	}
 	
 	
