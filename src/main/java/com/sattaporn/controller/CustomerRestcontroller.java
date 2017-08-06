@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import com.sattaporn.dto.CustomerDTO;
 import com.sattaporn.model.Customer;
 import com.sattaporn.service.CustomerService;
 
+@CrossOrigin(maxAge = 3600)
 @RestController
 @RequestMapping("customer")
 public class CustomerRestcontroller {
@@ -43,6 +45,7 @@ public class CustomerRestcontroller {
 		return new ResponseEntity<Customer>(updatedCustomer,HttpStatus.OK);
 	}
 	
+//	@CrossOrigin("http://localhost:4200")
 	@RequestMapping(path = "/remove/{id}" , method = RequestMethod.DELETE)
 	public ResponseEntity<?> removeCustomer(@PathVariable int id){
 		System.out.println("[PONDINGS] Start method removeCustomer");
