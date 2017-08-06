@@ -1,5 +1,5 @@
 package com.sattaporn.model;
-// Generated Aug 5, 2017 2:00:18 PM by Hibernate Tools 5.2.3.Final
+// Generated Aug 6, 2017 12:26:10 PM by Hibernate Tools 5.2.3.Final
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,10 +13,6 @@ import javax.persistence.Table;
 @Table(name = "employee", schema = "public")
 public class Employee implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private int id;
 	private String name;
 	private String lname;
@@ -83,12 +79,6 @@ public class Employee implements java.io.Serializable {
 
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
-	}
-
-	@Override
-	public String toString() {
-		return "Employee [id=" + id + ", name=" + name + ", lname=" + lname + ", sirName=" + sirName + ", fullName="
-				+ fullName + "]";
 	}
 
 }

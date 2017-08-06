@@ -23,15 +23,17 @@ public class CustomerServiceImpl implements CustomerService {
 	public Customer createCustomer(Customer customer) {
 		customer.setFullName(customer.getSirName() + " " + customer.getName() + " " + customer.getLname());
 		Customer createdCustomer = customerRepository.save(customer);
-		return createdCustomer;
+		createdCustomer.setCode("CUST"+String.format("%05d", customer.getId()));
+		Customer updatedCustomerCode = customerRepository.save(createdCustomer);
+		return updatedCustomerCode;
 	}
 
 	@Override
 	public List<Customer> findCustomer(CustomerDTO customer) {
 		String findingMethod = customer.getFindMethod();
+		customer.toUppercase();
 		List<Customer> customerList = new ArrayList<>();
-		customer.toUpperCase();
-		System.out.println(customer.toString());
+		System.out.println("[PONDINGS] searchKeyword = " + customer.getSearchKeyword());
 		switch (findingMethod) {
 		case "fullName":
 			customerList = customerRepository.findCustomerByName(customer);
@@ -42,13 +44,17 @@ public class CustomerServiceImpl implements CustomerService {
 		case "workAddress" :
 			System.out.println("The method Find by address not complete");
 			break;
-		case "id":
-			customerList = customerRepository.findCustomerByid(customer);
+		case "code":
+			customerList = customerRepository.findCustomerByCode(customer);
+			break;
+		case "phone":
+			customerList = customerRepository.findCustomerByPhone(customer);
 			break;
 		default:
 			System.out.println("Something went wrong !");
 			break;
 		}
+		System.out.println("Fetct size = " + customerList.size());
 		return customerList;
 	}
 
