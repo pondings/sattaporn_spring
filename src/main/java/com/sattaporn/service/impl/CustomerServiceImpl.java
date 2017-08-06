@@ -1,6 +1,7 @@
 package com.sattaporn.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,8 @@ public class CustomerServiceImpl implements CustomerService {
 		customer.setFullName(customer.getSirName() + " " + customer.getName() + " " + customer.getLname());
 		Customer createdCustomer = customerRepository.save(customer);
 		createdCustomer.setCode("CUST"+String.format("%05d", customer.getId()));
+		createdCustomer.setCreateDate(new Date());
+		createdCustomer.setCreateBy("Sattaporn Klaiamorn");
 		Customer updatedCustomerCode = customerRepository.save(createdCustomer);
 		return updatedCustomerCode;
 	}
@@ -33,7 +36,8 @@ public class CustomerServiceImpl implements CustomerService {
 		String findingMethod = customer.getFindMethod();
 		customer.toUppercase();
 		List<Customer> customerList = new ArrayList<>();
-		System.out.println("[PONDINGS] searchKeyword = " + customer.getSearchKeyword());
+		System.out.println("[PONDINGS] searchMethod = " + customer.getFindMethod());
+		System.out.println("[PONDINGS] searchKeyword = " + customer.getSearchKeyword() == null ? "null" : "not null");
 		switch (findingMethod) {
 		case "fullName":
 			customerList = customerRepository.findCustomerByName(customer);
@@ -61,6 +65,7 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public Customer updateCustomer(Customer customer) {
 		customer.setFullName(customer.getSirName() + " " + customer.getName() + " " + customer.getLname());
+		customer.setUpdateDate(new Date());
 		Customer updatedCustomer = customerRepository.save(customer);
 		return updatedCustomer;
 	}

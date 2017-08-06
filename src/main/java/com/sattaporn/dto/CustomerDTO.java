@@ -28,12 +28,13 @@ public class CustomerDTO extends Customer{
 		this.searchKeyword = searchKeyword;
 	}
 
+	
+	
 	@Override
 	public String toString() {
 		return "CustomerDTO [findMethod=" + findMethod + ", searchKeyword=" + searchKeyword + "]";
 	}
-	
-	
+
 	public void toUppercase() {
 		searchKeyword = searchKeyword != null ? searchKeyword.toUpperCase() : "";
 	}
