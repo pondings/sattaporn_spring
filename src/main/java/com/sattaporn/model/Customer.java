@@ -1,12 +1,17 @@
 package com.sattaporn.model;
-// Generated Aug 7, 2017 7:44:38 AM by Hibernate Tools 5.2.3.Final
+// Generated Aug 7, 2017 6:15:03 PM by Hibernate Tools 5.2.3.Final
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -18,6 +23,10 @@ import javax.persistence.TemporalType;
 @Table(name = "customer", schema = "public")
 public class Customer implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected int id;
 	protected String name;
 	protected String lname;
@@ -30,7 +39,9 @@ public class Customer implements java.io.Serializable {
 	protected String code;
 	protected String phone;
 	protected Date updateDate;
+	protected String updateBy;
 	protected byte[] document1;
+	protected Set<Object> documentations = new HashSet<Object>(0);
 
 	public Customer() {
 	}
@@ -41,7 +52,7 @@ public class Customer implements java.io.Serializable {
 
 	public Customer(int id, String name, String lname, String address, String workAddress, String sirName,
 			String fullName, Date createDate, String createBy, String code, String phone, Date updateDate,
-			byte[] document1) {
+			String updateBy, byte[] document1, Set<Object> documentations) {
 		this.id = id;
 		this.name = name;
 		this.lname = lname;
@@ -54,7 +65,9 @@ public class Customer implements java.io.Serializable {
 		this.code = code;
 		this.phone = phone;
 		this.updateDate = updateDate;
+		this.updateBy = updateBy;
 		this.document1 = document1;
+		this.documentations = documentations;
 	}
 
 	@Id
@@ -169,6 +182,15 @@ public class Customer implements java.io.Serializable {
 		this.updateDate = updateDate;
 	}
 
+	@Column(name = "update_by")
+	public String getUpdateBy() {
+		return this.updateBy;
+	}
+
+	public void setUpdateBy(String updateBy) {
+		this.updateBy = updateBy;
+	}
+
 	@Column(name = "document1")
 	public byte[] getDocument1() {
 		return this.document1;
@@ -176,6 +198,15 @@ public class Customer implements java.io.Serializable {
 
 	public void setDocument1(byte[] document1) {
 		this.document1 = document1;
+	}
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "customer", targetEntity = Documentation.class)
+	public Set<Object> getDocumentations() {
+		return this.documentations;
+	}
+
+	public void setDocumentations(Set<Object> documentations) {
+		this.documentations = documentations;
 	}
 
 }
