@@ -102,7 +102,7 @@ public class CustomerRestcontroller {
 	public ResponseEntity<byte[]> downloadDocument(@PathVariable String code) {
 		System.out.println("asd = " + code);
 		CustomerDTO customerDTO = new CustomerDTO();
-		customerDTO.setSearchKeyword("CUST00001");
+		customerDTO.setSearchKeyword(code);
 		customerDTO.setFindMethod("code");
 		customerDTO.toUppercase();
 		Customer targetCustomer = customerService.findCustomer(customerDTO).get(0);
