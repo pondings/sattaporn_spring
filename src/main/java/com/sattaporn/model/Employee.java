@@ -1,5 +1,5 @@
 package com.sattaporn.model;
-// Generated Aug 6, 2017 12:26:10 PM by Hibernate Tools 5.2.3.Final
+// Generated Aug 7, 2017 7:44:38 AM by Hibernate Tools 5.2.3.Final
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

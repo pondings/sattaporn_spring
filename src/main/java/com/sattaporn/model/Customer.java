@@ -1,5 +1,5 @@
 package com.sattaporn.model;
-// Generated Aug 6, 2017 12:26:10 PM by Hibernate Tools 5.2.3.Final
+// Generated Aug 7, 2017 7:44:38 AM by Hibernate Tools 5.2.3.Final
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -30,6 +30,7 @@ public class Customer implements java.io.Serializable {
 	protected String code;
 	protected String phone;
 	protected Date updateDate;
+	protected byte[] document1;
 
 	public Customer() {
 	}
@@ -39,7 +40,8 @@ public class Customer implements java.io.Serializable {
 	}
 
 	public Customer(int id, String name, String lname, String address, String workAddress, String sirName,
-			String fullName, Date createDate, String createBy, String code, String phone, Date updateDate) {
+			String fullName, Date createDate, String createBy, String code, String phone, Date updateDate,
+			byte[] document1) {
 		this.id = id;
 		this.name = name;
 		this.lname = lname;
@@ -52,6 +54,7 @@ public class Customer implements java.io.Serializable {
 		this.code = code;
 		this.phone = phone;
 		this.updateDate = updateDate;
+		this.document1 = document1;
 	}
 
 	@Id
@@ -164,6 +167,15 @@ public class Customer implements java.io.Serializable {
 
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
+	}
+
+	@Column(name = "document1")
+	public byte[] getDocument1() {
+		return this.document1;
+	}
+
+	public void setDocument1(byte[] document1) {
+		this.document1 = document1;
 	}
 
 }
