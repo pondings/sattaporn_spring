@@ -75,7 +75,7 @@ public class CustomerRestcontroller {
 		customerDTO.toUppercase();
 		Customer customer = customerService.findCustomer(customerDTO).get(0);
 		try {
-			customer.setDocument1(file.getBytes());
+//			customer.setDocument1(file.getBytes());
 			customer = customerService.updateCustomer(customer);			
 //			FileOutputStream out = new FileOutputStream(System.getProperty("user.dir") + "/src/main/resources/static/document1/" + customer.getCode());
 //			out.write(file.getBytes());
@@ -87,14 +87,16 @@ public class CustomerRestcontroller {
 	}
 	
 	@RequestMapping(path = "/downloadDocument/{code}" , method = RequestMethod.GET)
-	public ResponseEntity<byte[]> downloadDocument(@PathVariable String code) {
+	public ResponseEntity<?> downloadDocument(@PathVariable String code) {
 		CustomerDTO customerDTO = new CustomerDTO();
 		customerDTO.setSearchKeyword(code);
 		customerDTO.setFindMethod("code");
 		customerDTO.toUppercase();
 		Customer targetCustomer = customerService.findCustomer(customerDTO).get(0);
 
-		return new ResponseEntity<byte[]>(targetCustomer.getDocument1(),HttpStatus.OK);
+//		return new ResponseEntity<byte[]>(targetCustomer.getDocument1(),HttpStatus.OK);		
+		return new ResponseEntity<String>("This method in not working",HttpStatus.OK);
+
 	}
 	
 }
