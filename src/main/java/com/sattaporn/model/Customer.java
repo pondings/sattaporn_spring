@@ -39,7 +39,6 @@ public class Customer implements java.io.Serializable {
 	protected String phone;
 	protected Date updateDate;
 	protected String updateBy;
-	protected byte[] document1;
 	protected Set<Object> documentations = new HashSet<Object>(0);
 
 	public Customer() {
