@@ -69,15 +69,11 @@ public class CustomerRestcontroller {
 	
 	@RequestMapping(path = "uploadDocument" , method = RequestMethod.POST)
 	public ResponseEntity<?> updateDocument(@RequestParam("file") MultipartFile file,@RequestParam(required=true,name="code") String code) {
-		System.out.println("[PONDINGS] will upload document " + code);
-		
 		CustomerDTO customerDTO = new CustomerDTO();
 		customerDTO.setSearchKeyword(code);
 		customerDTO.setFindMethod("code");
 		customerDTO.toUppercase();
-		
 		Customer customer = customerService.findCustomer(customerDTO).get(0);
-		
 		try {
 			customer.setDocument1(file.getBytes());
 			customer = customerService.updateCustomer(customer);			
