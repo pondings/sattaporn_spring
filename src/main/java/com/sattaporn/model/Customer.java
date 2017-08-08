@@ -64,7 +64,7 @@ public class Customer implements java.io.Serializable {
 		this.phone = phone;
 		this.updateDate = updateDate;
 		this.updateBy = updateBy;
-		this.document1 = document1;
+//		this.document1 = document1;
 		this.documentations = documentations;
 	}
 
@@ -189,14 +189,14 @@ public class Customer implements java.io.Serializable {
 		this.updateBy = updateBy;
 	}
 
-	@Column(name = "document1")
-	public byte[] getDocument1() {
-		return this.document1;
-	}
-
-	public void setDocument1(byte[] document1) {
-		this.document1 = document1;
-	}
+//	@Column(name = "document1")
+//	public byte[] getDocument1() {
+//		return this.document1;
+//	}
+//
+//	public void setDocument1(byte[] document1) {
+//		this.document1 = document1;
+//	}
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "customer", targetEntity = Documentation.class)
 	public Set<Object> getDocumentations() {
