@@ -65,6 +65,7 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public Customer updateCustomer(Customer customer) {
 		customer.setFullName(customer.getSirName() + " " + customer.getName() + " " + customer.getLname());
+		customer.setUpdateBy("Sattaporn Klaiarmon");
 		customer.setUpdateDate(new Date());
 		Customer updatedCustomer = customerRepository.save(customer);
 		return updatedCustomer;
