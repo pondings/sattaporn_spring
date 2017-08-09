@@ -1,6 +1,7 @@
 package com.sattaporn.model;
-// Generated Aug 7, 2017 6:15:03 PM by Hibernate Tools 5.2.3.Final
+// Generated Aug 9, 2017 2:00:57 PM by Hibernate Tools 5.2.3.Final
 
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 /**
@@ -19,16 +22,16 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "documentation", schema = "public", uniqueConstraints = @UniqueConstraint(columnNames = "code"))
 public class Documentation implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private int id;
 	private Customer customer;
 	private String code;
 	private String name;
 	private String type;
 	private byte[] source;
+	private String createBy;
+	private Date createDate;
+	private String updateBy;
+	private Date updateDate;
 
 	public Documentation() {
 	}
@@ -37,13 +40,18 @@ public class Documentation implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public Documentation(int id, Customer customer, String code, String name, String type, byte[] source) {
+	public Documentation(int id, Customer customer, String code, String name, String type, byte[] source,
+			String createBy, Date createDate, String updateBy, Date updateDate) {
 		this.id = id;
 		this.customer = customer;
 		this.code = code;
 		this.name = name;
 		this.type = type;
 		this.source = source;
+		this.createBy = createBy;
+		this.createDate = createDate;
+		this.updateBy = updateBy;
+		this.updateDate = updateDate;
 	}
 
 	@Id
@@ -101,6 +109,44 @@ public class Documentation implements java.io.Serializable {
 
 	public void setSource(byte[] source) {
 		this.source = source;
+	}
+
+	@Column(name = "create_by")
+	public String getCreateBy() {
+		return this.createBy;
+	}
+
+	public void setCreateBy(String createBy) {
+		this.createBy = createBy;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "create_date", length = 13)
+	public Date getCreateDate() {
+		return this.createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	@Column(name = "update_by")
+	public String getUpdateBy() {
+		return this.updateBy;
+	}
+
+	public void setUpdateBy(String updateBy) {
+		this.updateBy = updateBy;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "update_date", length = 13)
+	public Date getUpdateDate() {
+		return this.updateDate;
+	}
+
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
 	}
 
 }
