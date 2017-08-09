@@ -92,7 +92,7 @@ public class CustomerRestcontroller {
 		customerDTO.setSearchKeyword(code);
 		customerDTO.setFindMethod("code");
 		customerDTO.toUppercase();
-		Customer targetCustomer = customerService.findCustomer(customerDTO).get(0);
+//		Customer targetCustomer = customerService.findCustomer(customerDTO).get(0);
 
 //		return new ResponseEntity<byte[]>(targetCustomer.getDocument1(),HttpStatus.OK);		
 		return new ResponseEntity<String>("This method in not working",HttpStatus.OK);
