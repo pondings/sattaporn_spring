@@ -1,6 +1,9 @@
 package com.sattaporn.controller;
 
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,18 +24,21 @@ public class DocumentationRestcontroller {
 	DocumentationService documentService;
 	
 	@RequestMapping(path="uploadDocument",method=RequestMethod.POST)
-	public ResponseEntity<?> createDocument(@RequestParam("file") Object obj) {
-		MultipartFile file = (MultipartFile) obj;
+	public ResponseEntity<?> createDocument(@RequestParam("file") MultipartFile file, @RequestParam("custId") String custId) {
+		System.out.println("Customer id = " + custId);
 		System.out.println(file.getName());
 		System.out.println(file.getSize());
 		System.out.println(file.getContentType());
 		System.out.println(file.getOriginalFilename());
-		return null;
+		Documentation insertedDociment = documentService.createDocument(file, custId);
+		return new ResponseEntity<Documentation>(insertedDociment, HttpStatus.OK);
 	}
 	
-	@RequestMapping(path="find",method=RequestMethod.POST)
-	public ResponseEntity<?> findDocumentation(@RequestBody Documentation documentation) {
-		return null;
+	@RequestMapping(path="find",method=RequestMethod.GET)
+	public ResponseEntity<?> findDocumentation() {
+		HashMap result = this.documentService.findDocument(new Documentation());
+		System.out.println(result.size());
+		return new ResponseEntity<HashMap>(result,HttpStatus.OK);
 	}
 	
 	@RequestMapping(path="update",method=RequestMethod.PUT)
