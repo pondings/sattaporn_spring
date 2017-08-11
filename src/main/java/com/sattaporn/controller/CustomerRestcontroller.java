@@ -6,17 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-
 import com.sattaporn.dto.CustomerDTO;
+import com.sattaporn.dto.DocumentationDTO;
 import com.sattaporn.model.Customer;
+import com.sattaporn.model.Documentation;
 import com.sattaporn.service.CustomerService;
+import com.sattaporn.service.DocumentationService;
 
 @CrossOrigin(maxAge = 3600)
 @RestController
@@ -25,6 +24,9 @@ public class CustomerRestcontroller {
 
 	@Autowired
 	CustomerService customerService ;
+	
+	@Autowired
+	DocumentationService documentService;
 	
 	@RequestMapping(path = "/showAll" , method = RequestMethod.GET)
 	public ResponseEntity<?> showAll(){
@@ -47,16 +49,22 @@ public class CustomerRestcontroller {
 		return new ResponseEntity<Customer>(updatedCustomer,HttpStatus.OK);
 	}
 	
-	@RequestMapping(path = "/remove/{id}" , method = RequestMethod.DELETE)
-	public ResponseEntity<?> removeCustomer(@PathVariable int id){
-		System.out.println("[PONDINGS] Start method removeCustomer");
+	@RequestMapping(path = "/remove" , method = RequestMethod.POST)
+	public ResponseEntity<?> removeCustomer(@RequestBody Customer customer){
 		try {
-			customerService.removeCustomer(id);
-			return new ResponseEntity<String>("Remove Customer " + id , HttpStatus.OK);
+			DocumentationDTO documentation = new DocumentationDTO("custCode",customer.getCode());
+			List<Documentation> documentList = documentService.findDocument(documentation);
+			
+			for (Documentation targetDocument : documentList) {
+				documentService.removeDocument(targetDocument.getId());
+			}
+			
+			customerService.removeCustomer(customer.getId());
+			return new ResponseEntity<String>("Remove Customer ", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("[PONDNGS] Error on remove method.");
-			return new ResponseEntity<String>("Cant remove customer id " + id , HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<String>("Cant remove customer id " , HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
