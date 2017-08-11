@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.sattaporn.dto.DocumentationDTO;
 import com.sattaporn.model.Customer;
 import com.sattaporn.model.Documentation;
 import com.sattaporn.repository.DocumentationRepository;
@@ -47,8 +48,24 @@ public class DocumentationServiceImpl implements DocumentationService {
 	}
 
 	@Override
-	public List<Documentation> findDocument(Documentation documentation) {
-		List<Documentation> documentList = documentRepository.findDocument(documentation);
+	public List<Documentation> findDocument(DocumentationDTO documentation) {
+		
+		System.out.println(documentation.getSearchKeyword());
+		
+		String findMethod = documentation.getFindMethod();
+		String searchKeyword = documentation.getSearchKeyword();
+		List<Documentation> documentList = null;
+		
+		switch (findMethod) {
+		case "code":
+			documentList = documentRepository.findByCode(searchKeyword);
+			break;
+		case "custCode":
+			documentList = documentRepository.findByCustomeCode(searchKeyword);
+		default:
+			break;
+		}
+		
 		return documentList;
 	}
 
