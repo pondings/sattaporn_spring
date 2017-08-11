@@ -8,6 +8,18 @@ public class DocumentationDTO extends Documentation{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	
+	public DocumentationDTO() {
+		super();
+	}
+	
+	public DocumentationDTO(String findMethod, String searchKeyword) {
+		super();
+		this.findMethod = findMethod;
+		this.searchKeyword = searchKeyword;
+	}
+	
 	private String findMethod;
 	private String searchKeyword;
 	
