@@ -15,7 +15,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -24,7 +26,6 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
  */
 @Entity
 @Table(name = "customer", schema = "public")
-@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,property="id")
 public class Customer implements java.io.Serializable {
 
 	/**
@@ -205,6 +206,7 @@ public class Customer implements java.io.Serializable {
 
 //	@JsonIgnore
 //	@JsonManagedReference
+	@JsonBackReference
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "customer", targetEntity = Documentation.class)
 	public Set<Object> getDocumentations() {
 		return this.documentations;

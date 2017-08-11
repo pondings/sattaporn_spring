@@ -66,7 +66,7 @@ public class DocumentationServiceImpl implements DocumentationService {
 
 	@Override
 	public List<Documentation> findAll() {
-		List<Documentation> documentList = documentRepository.findAll();
+		List<Documentation> documentList = (List<Documentation>) documentRepository.findAll();
 		return documentList;
 	}
 
