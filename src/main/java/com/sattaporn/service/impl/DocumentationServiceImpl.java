@@ -25,6 +25,10 @@ public class DocumentationServiceImpl implements DocumentationService {
 
 	@Override
 	public Documentation createDocument(MultipartFile file, String custId) {
+		System.out.println(file.getContentType());
+		if(file.getContentType().equals("application/x-msdownload")) {
+			return null;
+		}
 		Documentation document = new Documentation();
 
 		Customer customer = new Customer();
