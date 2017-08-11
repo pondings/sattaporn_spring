@@ -1,13 +1,8 @@
 package com.sattaporn.service.impl;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.Statement;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,14 +14,10 @@ import com.sattaporn.model.Documentation;
 import com.sattaporn.repository.DocumentationRepository;
 import com.sattaporn.service.DocumentationService;
 
+
 @Service
 @Transactional
 public class DocumentationServiceImpl implements DocumentationService {
-
-	static final String JDBC_DRIVER = "org.postgresql.Driver";
-	static final String DB_URL = "jdbc:postgresql://localhost:5432/sattaporn";
-	static final String USER = "postgres";
-	static final String PASS = "password";
 
 	@Autowired
 	DocumentationRepository documentRepository;
@@ -56,33 +47,9 @@ public class DocumentationServiceImpl implements DocumentationService {
 	}
 
 	@Override
-	public HashMap findDocument(Documentation documentation) {
-
-		Connection connection = null;
-		Statement statement = null;
-		String sql = "SELECT sir_name as ทดสอบ,name FROM customer";
-		HashMap obj = new HashMap<>();
-
-		try {
-
-			Class.forName("org.postgresql.Driver");
-			connection = DriverManager.getConnection(DB_URL, USER, PASS);
-			statement = connection.createStatement();
-			ResultSet rs = statement.executeQuery(sql);
-			ResultSetMetaData rsMetaData = rs.getMetaData();
-			while (rs.next()) {
-				int columnCount = rsMetaData.getColumnCount();
-				for (int i = 1; i < columnCount+1; i++) {
-					String column_name = rsMetaData.getColumnName(i);
-					obj.put(column_name, rs.getObject(column_name));
-				}
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return obj;
+	public List<Documentation> findDocument(Documentation documentation) {
+		List<Documentation> documentList = documentRepository.findDocument(documentation);
+		return documentList;
 	}
 
 	@Override
@@ -95,6 +62,12 @@ public class DocumentationServiceImpl implements DocumentationService {
 	public void removeDocument(int id) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public List<Documentation> findAll() {
+		List<Documentation> documentList = documentRepository.findAll();
+		return documentList;
 	}
 
 }

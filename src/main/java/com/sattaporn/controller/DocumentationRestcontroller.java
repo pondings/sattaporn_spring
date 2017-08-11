@@ -1,6 +1,6 @@
 package com.sattaporn.controller;
 
-import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,11 +34,10 @@ public class DocumentationRestcontroller {
 		return new ResponseEntity<Documentation>(insertedDociment, HttpStatus.OK);
 	}
 	
-	@RequestMapping(path="find",method=RequestMethod.GET)
-	public ResponseEntity<?> findDocumentation() {
-		HashMap result = this.documentService.findDocument(new Documentation());
-		System.out.println(result.size());
-		return new ResponseEntity<HashMap>(result,HttpStatus.OK);
+	@RequestMapping(path="find",method=RequestMethod.POST)
+	public ResponseEntity<?> findDocumentation(@RequestBody Documentation documentation) {
+		List<Documentation> documentList = documentService.findDocument(documentation);
+		return new ResponseEntity<List<Documentation>>(documentList, HttpStatus.OK);
 	}
 	
 	@RequestMapping(path="update",method=RequestMethod.PUT)
@@ -49,6 +48,12 @@ public class DocumentationRestcontroller {
 	@RequestMapping(path="remove/{id}",method=RequestMethod.DELETE)
 	public ResponseEntity<?> removeDocumentation(@PathVariable("id") int id) {
 		return null;
+	}
+	
+	@RequestMapping(path="findAll",method=RequestMethod.GET)
+	public ResponseEntity<?> findAll() {
+		List<Documentation> documentList = documentService.findAll();
+		return new ResponseEntity<List<Documentation>>(documentList,HttpStatus.OK);
 	}
 	
 }
