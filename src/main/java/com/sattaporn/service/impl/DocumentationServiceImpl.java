@@ -62,6 +62,10 @@ public class DocumentationServiceImpl implements DocumentationService {
 			break;
 		case "custCode":
 			documentList = documentRepository.findByCustomeCode(searchKeyword);
+		case "custId":
+			try {
+				documentList = documentRepository.findByCustomerId(Integer.parseInt(searchKeyword));
+			} catch (Exception e) {}
 		default:
 			break;
 		}
