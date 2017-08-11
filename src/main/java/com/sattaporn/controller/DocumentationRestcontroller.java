@@ -17,7 +17,7 @@ import com.sattaporn.model.Documentation;
 import com.sattaporn.service.DocumentationService;
 
 @RestController
-@RequestMapping("ducmentation")
+@RequestMapping("documentation")
 public class DocumentationRestcontroller {
 
 	@Autowired
