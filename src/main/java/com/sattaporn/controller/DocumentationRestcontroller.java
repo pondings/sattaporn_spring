@@ -36,7 +36,7 @@ public class DocumentationRestcontroller {
 	}
 	
 	@RequestMapping(path="find",method=RequestMethod.POST)
-	public ResponseEntity<?> findDocumentation(@RequestBody Documentation documentation) {
+	public ResponseEntity<?> findDocumentation(@RequestBody DocumentationDTO documentation) {
 		List<Documentation> documentList = documentService.findDocument(documentation);
 		return new ResponseEntity<List<Documentation>>(documentList, HttpStatus.OK);
 	}
@@ -65,7 +65,8 @@ public class DocumentationRestcontroller {
 	@RequestMapping(path = "/downloadDocument/{code}" , method = RequestMethod.GET)
 	public ResponseEntity<?> downloadDocument(@PathVariable String code) {
 		DocumentationDTO documentationDTO = new DocumentationDTO();
-		documentationDTO.setCode(code);
+		documentationDTO.setSearchKeyword(code);;
+		documentationDTO.setFindMethod("code");
 		
 		List<Documentation> documentList = documentService.findDocument(documentationDTO);
 		Documentation targetDocument = documentList.get(0);
