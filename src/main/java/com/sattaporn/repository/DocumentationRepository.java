@@ -15,7 +15,7 @@ import org.springframework.data.repository.query.Param;
 @Transactional(readOnly = true)
 public interface DocumentationRepository extends CrudRepository<Documentation,Integer>{
 
-	@Query("SELECT doc FROM Documentation doc LEFT JOIN FETCH doc.customer WHERE doc.customer.code = :#{#param.customer.code}")
+	@Query("SELECT doc FROM Documentation doc LEFT JOIN FETCH doc.customer WHERE doc.code = :#{#param.code}")
 	public List<Documentation> findDocument(@Param("param") Documentation documentation) ;
 	
 	@Query("SELECT doc FROM Documentation doc")
