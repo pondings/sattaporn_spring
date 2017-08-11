@@ -9,22 +9,28 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sattaporn.dto.CustomerDTO;
+import com.sattaporn.dto.DocumentationDTO;
 import com.sattaporn.model.Customer;
+import com.sattaporn.model.Documentation;
 import com.sattaporn.repository.CustomerRepository;
 import com.sattaporn.service.CustomerService;
+import com.sattaporn.service.DocumentationService;
 
 @Service
 @Transactional
 public class CustomerServiceImpl implements CustomerService {
 
 	@Autowired
-	CustomerRepository customerRepository ;
+	CustomerRepository customerRepository;
+
+	@Autowired
+	DocumentationService documentService;
 
 	@Override
 	public Customer createCustomer(Customer customer) {
 		customer.setFullName(customer.getSirName() + " " + customer.getName() + " " + customer.getLname());
 		Customer createdCustomer = customerRepository.save(customer);
-		createdCustomer.setCode("CUST"+String.format("%05d", customer.getId()));
+		createdCustomer.setCode("CUST" + String.format("%05d", customer.getId()));
 		createdCustomer.setCreateDate(new Date());
 		createdCustomer.setCreateBy("Sattaporn Klaiamorn");
 		Customer updatedCustomerCode = customerRepository.save(createdCustomer);
@@ -36,16 +42,14 @@ public class CustomerServiceImpl implements CustomerService {
 		String findingMethod = customer.getFindMethod();
 		customer.toUppercase();
 		List<Customer> customerList = new ArrayList<>();
-		System.out.println("[PONDINGS] searchMethod = " + customer.getFindMethod());
-		System.out.println("[PONDINGS] searchKeyword = " + customer.getSearchKeyword() == null ? "null" : "not null");
 		switch (findingMethod) {
 		case "fullName":
 			customerList = customerRepository.findCustomerByName(customer);
 			break;
-		case "address": 
+		case "address":
 			System.out.println("The method Find by address not complete");
 			break;
-		case "workAddress" :
+		case "workAddress":
 			System.out.println("The method Find by address not complete");
 			break;
 		case "code":
@@ -55,10 +59,8 @@ public class CustomerServiceImpl implements CustomerService {
 			customerList = customerRepository.findCustomerByPhone(customer);
 			break;
 		default:
-			System.out.println("Something went wrong !");
 			break;
 		}
-		System.out.println("Fetct size = " + customerList.size());
 		return customerList;
 	}
 
@@ -73,6 +75,11 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public void removeCustomer(int id) {
+		DocumentationDTO documentation = new DocumentationDTO("custId", String.valueOf(id));
+		List<Documentation> documentList = documentService.findDocument(documentation);
+		for (Documentation targetDocument : documentList) {
+			documentService.removeDocument(targetDocument.getId());
+		}
 		customerRepository.delete(id);
 	}
 
@@ -81,5 +88,5 @@ public class CustomerServiceImpl implements CustomerService {
 		List<Customer> customerList = (List<Customer>) customerRepository.findAll();
 		return customerList;
 	}
-	
+
 }
