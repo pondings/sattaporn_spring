@@ -26,4 +26,7 @@ public interface DocumentationRepository extends CrudRepository<Documentation,In
 	@Query("SELECT doc FROM Documentation doc LEFT JOIN FETCH doc.customer WHERE doc.customer.code = :#{#param}")
 	public List<Documentation> findByCustomeCode(@Param("param") String code);
 	
+	@Query("SELECT doc FROM Documentation doc LEFT JOIN FETCH doc.customer WHERE doc.customer.id = :#{#param}")
+	public List<Documentation> findByCustomerId(@Param("param") int id);
+	
 }
