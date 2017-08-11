@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.sattaporn.dto.DocumentationDTO;
 import com.sattaporn.model.Documentation;
 import com.sattaporn.service.DocumentationService;
 
@@ -47,7 +48,12 @@ public class DocumentationRestcontroller {
 	
 	@RequestMapping(path="remove/{id}",method=RequestMethod.DELETE)
 	public ResponseEntity<?> removeDocumentation(@PathVariable("id") int id) {
-		return null;
+		try {
+			documentService.removeDocument(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<String>("Delete complete !", HttpStatus.OK);
 	}
 	
 	@RequestMapping(path="findAll",method=RequestMethod.GET)
@@ -55,5 +61,19 @@ public class DocumentationRestcontroller {
 		List<Documentation> documentList = documentService.findAll();
 		return new ResponseEntity<List<Documentation>>(documentList,HttpStatus.OK);
 	}
+	
+	@RequestMapping(path = "/downloadDocument/{code}" , method = RequestMethod.GET)
+	public ResponseEntity<?> downloadDocument(@PathVariable String code) {
+		DocumentationDTO documentationDTO = new DocumentationDTO();
+		documentationDTO.setCode(code);
+		
+		List<Documentation> documentList = documentService.findDocument(documentationDTO);
+		Documentation targetDocument = documentList.get(0);
+//		Customer targetCustomer = customerService.findCustomer(customerDTO).get(0);
+
+		return new ResponseEntity<byte[]>(targetDocument.getSource(),HttpStatus.OK);	
+
+	}
+
 	
 }
