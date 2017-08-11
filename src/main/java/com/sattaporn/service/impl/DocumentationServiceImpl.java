@@ -60,8 +60,7 @@ public class DocumentationServiceImpl implements DocumentationService {
 
 	@Override
 	public void removeDocument(int id) {
-		// TODO Auto-generated method stub
-
+		documentRepository.delete(id);
 	}
 
 	@Override
