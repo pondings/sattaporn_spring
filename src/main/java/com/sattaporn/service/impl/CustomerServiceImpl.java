@@ -28,7 +28,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public Customer createCustomer(Customer customer) {
-		customer.setFullName(customer.getSirName() + " " + customer.getName() + " " + customer.getLname());
+		customer.setFullName(customer.getTitle() + " " + customer.getName() + " " + customer.getLname());
 		Customer createdCustomer = customerRepository.save(customer);
 		createdCustomer.setCode("CUST" + String.format("%05d", customer.getId()));
 		createdCustomer.setCreateDate(new Date());
@@ -66,7 +66,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public Customer updateCustomer(Customer customer) {
-		customer.setFullName(customer.getSirName() + " " + customer.getName() + " " + customer.getLname());
+		customer.setFullName(customer.getTitle() + " " + customer.getName() + " " + customer.getLname());
 		customer.setUpdateBy("Sattaporn Klaiarmon");
 		customer.setUpdateDate(new Date());
 		Customer updatedCustomer = customerRepository.save(customer);
