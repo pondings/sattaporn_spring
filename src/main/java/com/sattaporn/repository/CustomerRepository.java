@@ -28,4 +28,7 @@ public interface CustomerRepository extends CrudRepository<Customer, Integer>{
 	@Query("SELECT cust FROM Customer cust WHERE 1=1 AND (cust.code = :#{#param.searchKeyword})")
 	public List<Customer> findCustomerByCode(@Param("param") CustomerDTO customer);
     
+	@Query("SELECT cust FROM Customer cust WHERE 1=1 AND (UPPER(cust.email) LIKE %:#{#param.searchKeyword != null ? #param.searchKeyword : ''}%)")
+	public List<Customer> findcustomerByEmail(@Param("param") CustomerDTO customer);
+	
 }
