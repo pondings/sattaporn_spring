@@ -49,8 +49,8 @@ public class CustomerServiceImpl implements CustomerService {
 		case "address":
 			System.out.println("The method Find by address not complete");
 			break;
-		case "workAddress":
-			System.out.println("The method Find by address not complete");
+		case "email":
+			customerList = customerRepository.findcustomerByEmail(customer);
 			break;
 		case "code":
 			customerList = customerRepository.findCustomerByCode(customer);
