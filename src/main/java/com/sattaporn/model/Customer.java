@@ -1,5 +1,5 @@
 package com.sattaporn.model;
-// Generated Aug 7, 2017 6:15:03 PM by Hibernate Tools 5.2.3.Final
+// Generated Aug 12, 2017 11:18:25 AM by Hibernate Tools 5.2.3.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -33,7 +33,7 @@ public class Customer implements java.io.Serializable {
 	protected String lname;
 	protected String address;
 	protected String workAddress;
-	protected String sirName;
+	protected String title;
 	protected String fullName;
 	protected Date createDate;
 	protected String createBy;
@@ -42,6 +42,7 @@ public class Customer implements java.io.Serializable {
 	protected Date updateDate;
 	protected String updateBy;
 	protected Set<Object> documentations = new HashSet<Object>(0);
+	protected String email;
 
 	public Customer() {
 	}
@@ -50,15 +51,15 @@ public class Customer implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public Customer(int id, String name, String lname, String address, String workAddress, String sirName,
+	public Customer(int id, String name, String lname, String address, String workAddress, String title,
 			String fullName, Date createDate, String createBy, String code, String phone, Date updateDate,
-			String updateBy, byte[] document1, Set<Object> documentations) {
+			String updateBy, String email, Set<Object> documentations) {
 		this.id = id;
 		this.name = name;
 		this.lname = lname;
 		this.address = address;
 		this.workAddress = workAddress;
-		this.sirName = sirName;
+		this.title = title;
 		this.fullName = fullName;
 		this.createDate = createDate;
 		this.createBy = createBy;
@@ -66,12 +67,12 @@ public class Customer implements java.io.Serializable {
 		this.phone = phone;
 		this.updateDate = updateDate;
 		this.updateBy = updateBy;
-//		this.document1 = document1;
+		this.email = email;
 		this.documentations = documentations;
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	public int getId() {
 		return this.id;
@@ -117,13 +118,13 @@ public class Customer implements java.io.Serializable {
 		this.workAddress = workAddress;
 	}
 
-	@Column(name = "sir_name", length = 20)
-	public String getSirName() {
-		return this.sirName;
+	@Column(name = "title", length = 20)
+	public String getTitle() {
+		return this.title;
 	}
 
-	public void setSirName(String sirName) {
-		this.sirName = sirName;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	@Column(name = "full_name")
@@ -191,14 +192,14 @@ public class Customer implements java.io.Serializable {
 		this.updateBy = updateBy;
 	}
 
-//	@Column(name = "document1")
-//	public byte[] getDocument1() {
-//		return this.document1;
-//	}
-//
-//	public void setDocument1(byte[] document1) {
-//		this.document1 = document1;
-//	}
+	@Column(name = "email")
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customer", targetEntity = Documentation.class)
