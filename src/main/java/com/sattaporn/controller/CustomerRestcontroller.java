@@ -24,11 +24,11 @@ public class CustomerRestcontroller {
 	CustomerService customerService ;
 
 	
-	@RequestMapping(path = "/showAll" , method = RequestMethod.GET)
-	public ResponseEntity<?> showAll(){
-		List<Customer> customerList = customerService.findAll();
-		return new ResponseEntity<List<Customer>>(customerList, HttpStatus.OK);
-	}
+//	@RequestMapping(path = "/showAll" , method = RequestMethod.GET)
+//	public ResponseEntity<?> showAll(){
+//		List<Customer> customerList = customerService.findAll();
+//		return new ResponseEntity<List<Customer>>(customerList, HttpStatus.OK);
+//	}
 	
 	@RequestMapping(path = "/create" , method = RequestMethod.POST)
 	public ResponseEntity<?> createCustomer(@RequestBody Customer customer){
