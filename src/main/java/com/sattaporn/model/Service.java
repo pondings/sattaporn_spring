@@ -1,5 +1,5 @@
 package com.sattaporn.model;
-// Generated Aug 19, 2017 11:15:28 PM by Hibernate Tools 5.2.3.Final
+// Generated Aug 20, 2017 12:28:57 AM by Hibernate Tools 5.2.3.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -23,13 +23,9 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "service", schema = "public", uniqueConstraints = @UniqueConstraint(columnNames = "name"))
 public class Service implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private int id;
 	private String name;
-	private String desc;
+	private String description;
 	private Date createDate;
 	private String createBy;
 	private Date updateDate;
@@ -43,11 +39,11 @@ public class Service implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public Service(int id, String name, String desc, Date createDate, String createBy, Date updateDate, String updateBy,
-			Set<Object> serviceInfos) {
+	public Service(int id, String name, String description, Date createDate, String createBy, Date updateDate,
+			String updateBy, Set serviceInfos) {
 		this.id = id;
 		this.name = name;
-		this.desc = desc;
+		this.description = description;
 		this.createDate = createDate;
 		this.createBy = createBy;
 		this.updateDate = updateDate;
@@ -75,13 +71,13 @@ public class Service implements java.io.Serializable {
 		this.name = name;
 	}
 
-	@Column(name = "desc")
-	public String getDesc() {
-		return this.desc;
+	@Column(name = "description")
+	public String getDescription() {
+		return this.description;
 	}
 
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	@Temporal(TemporalType.DATE)
