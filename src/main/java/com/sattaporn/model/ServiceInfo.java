@@ -1,5 +1,5 @@
 package com.sattaporn.model;
-// Generated Aug 19, 2017 11:55:57 PM by Hibernate Tools 5.2.3.Final
+// Generated Aug 20, 2017 12:28:57 AM by Hibernate Tools 5.2.3.Final
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -33,7 +33,8 @@ public class ServiceInfo implements java.io.Serializable {
 	private String createBy;
 	private Date updateDate;
 	private String updateBy;
-	private String desc;
+	private String description;
+	private String method;
 
 	public ServiceInfo() {
 	}
@@ -43,7 +44,7 @@ public class ServiceInfo implements java.io.Serializable {
 	}
 
 	public ServiceInfo(int id, Service service, String name, String path, Date createDate, String createBy,
-			Date updateDate, String updateBy, String desc) {
+			Date updateDate, String updateBy, String description, String method) {
 		this.id = id;
 		this.service = service;
 		this.name = name;
@@ -52,7 +53,8 @@ public class ServiceInfo implements java.io.Serializable {
 		this.createBy = createBy;
 		this.updateDate = updateDate;
 		this.updateBy = updateBy;
-		this.desc = desc;
+		this.description = description;
+		this.method = method;
 	}
 
 	@Id
@@ -132,13 +134,22 @@ public class ServiceInfo implements java.io.Serializable {
 		this.updateBy = updateBy;
 	}
 
-	@Column(name = "desc")
-	public String getDesc() {
-		return this.desc;
+	@Column(name = "description")
+	public String getDescription() {
+		return this.description;
 	}
 
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	@Column(name = "method")
+	public String getMethod() {
+		return this.method;
+	}
+
+	public void setMethod(String method) {
+		this.method = method;
 	}
 
 }
