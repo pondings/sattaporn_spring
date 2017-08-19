@@ -34,7 +34,7 @@ public class Service implements java.io.Serializable {
 	private String createBy;
 	private Date updateDate;
 	private String updateBy;
-	private Set<?> serviceInfos = new HashSet<Object>(0);
+	private Set<Object> serviceInfos = new HashSet<Object>(0);
 
 	public Service() {
 	}
@@ -44,7 +44,7 @@ public class Service implements java.io.Serializable {
 	}
 
 	public Service(int id, String name, String desc, Date createDate, String createBy, Date updateDate, String updateBy,
-			Set<?> serviceInfos) {
+			Set<Object> serviceInfos) {
 		this.id = id;
 		this.name = name;
 		this.desc = desc;
@@ -56,7 +56,7 @@ public class Service implements java.io.Serializable {
 	}
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	public int getId() {
 		return this.id;
@@ -122,12 +122,12 @@ public class Service implements java.io.Serializable {
 		this.updateBy = updateBy;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "service")
-	public Set<?> getServiceInfos() {
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "service", targetEntity = ServiceInfo.class)
+	public Set<Object> getServiceInfos() {
 		return this.serviceInfos;
 	}
 
-	public void setServiceInfos(Set<?> serviceInfos) {
+	public void setServiceInfos(Set<Object> serviceInfos) {
 		this.serviceInfos = serviceInfos;
 	}
 
