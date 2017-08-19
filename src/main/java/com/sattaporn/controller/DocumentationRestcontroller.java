@@ -54,11 +54,11 @@ public class DocumentationRestcontroller {
 		return new ResponseEntity<String>("Delete complete !", HttpStatus.OK);
 	}
 	
-//	@RequestMapping(path="findAll",method=RequestMethod.GET)
-//	public ResponseEntity<?> findAll() {
-//		List<Documentation> documentList = documentService.findAll();
-//		return new ResponseEntity<List<Documentation>>(documentList,HttpStatus.OK);
-//	}
+	@RequestMapping(path="findAll",method=RequestMethod.GET)
+	public ResponseEntity<?> findAll() {
+		List<Documentation> documentList = documentService.findAll();
+		return new ResponseEntity<List<Documentation>>(documentList,HttpStatus.OK);
+	}
 	
 	@RequestMapping(path = "/downloadDocument/{code}" , method = RequestMethod.GET)
 	public ResponseEntity<?> downloadDocument(@PathVariable String code) {
