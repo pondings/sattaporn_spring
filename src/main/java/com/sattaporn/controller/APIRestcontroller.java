@@ -28,7 +28,7 @@ public class APIRestcontroller {
 	
 	@RequestMapping(path="/findByName",method=RequestMethod.POST)
 	public ResponseEntity<?> findByName(@RequestBody Service service) {
-		List<Service> serviceList = apiService.findAll();
+		List<Service> serviceList = apiService.findByName(service.getName());
 		return new ResponseEntity<List<Service>>(serviceList,HttpStatus.OK);
 	}
 	
