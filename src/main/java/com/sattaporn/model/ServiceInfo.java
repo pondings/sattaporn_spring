@@ -1,10 +1,15 @@
 package com.sattaporn.model;
-// Generated Aug 19, 2017 11:06:04 PM by Hibernate Tools 5.2.3.Final
+// Generated Aug 19, 2017 11:15:28 PM by Hibernate Tools 5.2.3.Final
 
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -16,7 +21,12 @@ import javax.persistence.TemporalType;
 @Table(name = "service_info", schema = "public")
 public class ServiceInfo implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
+	private Service service;
 	private String name;
 	private String path;
 	private Date createDate;
@@ -31,9 +41,10 @@ public class ServiceInfo implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public ServiceInfo(int id, String name, String path, Date createDate, String createBy, Date updateDate,
-			String updateBy) {
+	public ServiceInfo(int id, Service service, String name, String path, Date createDate, String createBy,
+			Date updateDate, String updateBy) {
 		this.id = id;
+		this.service = service;
 		this.name = name;
 		this.path = path;
 		this.createDate = createDate;
@@ -43,7 +54,7 @@ public class ServiceInfo implements java.io.Serializable {
 	}
 
 	@Id
-
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	public int getId() {
 		return this.id;
@@ -51,6 +62,16 @@ public class ServiceInfo implements java.io.Serializable {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "service_id")
+	public Service getService() {
+		return this.service;
+	}
+
+	public void setService(Service service) {
+		this.service = service;
 	}
 
 	@Column(name = "name")

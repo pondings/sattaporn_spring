@@ -1,10 +1,16 @@
 package com.sattaporn.model;
-// Generated Aug 19, 2017 11:06:04 PM by Hibernate Tools 5.2.3.Final
+// Generated Aug 19, 2017 11:15:28 PM by Hibernate Tools 5.2.3.Final
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -17,6 +23,10 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "service", schema = "public", uniqueConstraints = @UniqueConstraint(columnNames = "name"))
 public class Service implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private String name;
 	private String desc;
@@ -24,6 +34,7 @@ public class Service implements java.io.Serializable {
 	private String createBy;
 	private Date updateDate;
 	private String updateBy;
+	private Set<?> serviceInfos = new HashSet<Object>(0);
 
 	public Service() {
 	}
@@ -32,8 +43,8 @@ public class Service implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public Service(int id, String name, String desc, Date createDate, String createBy, Date updateDate,
-			String updateBy) {
+	public Service(int id, String name, String desc, Date createDate, String createBy, Date updateDate, String updateBy,
+			Set<?> serviceInfos) {
 		this.id = id;
 		this.name = name;
 		this.desc = desc;
@@ -41,10 +52,11 @@ public class Service implements java.io.Serializable {
 		this.createBy = createBy;
 		this.updateDate = updateDate;
 		this.updateBy = updateBy;
+		this.serviceInfos = serviceInfos;
 	}
 
 	@Id
-
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	public int getId() {
 		return this.id;
@@ -108,6 +120,15 @@ public class Service implements java.io.Serializable {
 
 	public void setUpdateBy(String updateBy) {
 		this.updateBy = updateBy;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "service")
+	public Set<?> getServiceInfos() {
+		return this.serviceInfos;
+	}
+
+	public void setServiceInfos(Set<?> serviceInfos) {
+		this.serviceInfos = serviceInfos;
 	}
 
 }
