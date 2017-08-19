@@ -1,5 +1,5 @@
 package com.sattaporn.model;
-// Generated Aug 19, 2017 11:15:28 PM by Hibernate Tools 5.2.3.Final
+// Generated Aug 19, 2017 11:55:57 PM by Hibernate Tools 5.2.3.Final
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -33,6 +33,7 @@ public class ServiceInfo implements java.io.Serializable {
 	private String createBy;
 	private Date updateDate;
 	private String updateBy;
+	private String desc;
 
 	public ServiceInfo() {
 	}
@@ -42,7 +43,7 @@ public class ServiceInfo implements java.io.Serializable {
 	}
 
 	public ServiceInfo(int id, Service service, String name, String path, Date createDate, String createBy,
-			Date updateDate, String updateBy) {
+			Date updateDate, String updateBy, String desc) {
 		this.id = id;
 		this.service = service;
 		this.name = name;
@@ -51,6 +52,7 @@ public class ServiceInfo implements java.io.Serializable {
 		this.createBy = createBy;
 		this.updateDate = updateDate;
 		this.updateBy = updateBy;
+		this.desc = desc;
 	}
 
 	@Id
@@ -128,6 +130,15 @@ public class ServiceInfo implements java.io.Serializable {
 
 	public void setUpdateBy(String updateBy) {
 		this.updateBy = updateBy;
+	}
+
+	@Column(name = "desc")
+	public String getDesc() {
+		return this.desc;
+	}
+
+	public void setDesc(String desc) {
+		this.desc = desc;
 	}
 
 }
