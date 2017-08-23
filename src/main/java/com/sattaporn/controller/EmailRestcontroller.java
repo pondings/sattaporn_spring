@@ -21,8 +21,8 @@ public class EmailRestcontroller {
 	public void sendEmail(@RequestParam("files") MultipartFile[] files, @RequestParam("username") String username,
 			@RequestParam("password") String password, @RequestParam("content") String content, @RequestParam("sendFrom") String sendFrom,
 			@RequestParam("sendTo") String sendTo, @RequestParam("subject") String subject) {
-		Email email = new Email() ;
 		
+		Email email = new Email() ;
 		email.setUsername(username);
 		email.setPassword(password);
 		email.setContent(content);
@@ -30,9 +30,7 @@ public class EmailRestcontroller {
 		email.setSendTo(sendTo);
 		email.setSubject(subject);
 		
-		System.out.println("Email =  " + email.toString());
-		
-//		emailservice.sendMail(files);
+		emailservice.sendMail(files, email);
 		
 	}
 	
