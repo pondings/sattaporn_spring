@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.sattaporn.model.Email;
 import com.sattaporn.service.EmailService;
 
 @Service
@@ -29,55 +30,40 @@ import com.sattaporn.service.EmailService;
 public class EmailServiceImpl implements EmailService {
 
 	@Override
-	public void sendMail(MultipartFile[] files) {
+	public void sendMail(MultipartFile[] files, Email email) {
 		Properties props = new Properties();
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.socketFactory.port", "465");
 		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.port", "465");
-
 		Session session = Session.getInstance(props, new Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication("Enter your email", "Enter your password");
+				return new PasswordAuthentication(email.getUsername(), email.getPassword());
 			}
 		});
-
 		try {
-
 			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress("pawarut@no-spam.com"));
-			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("unborn_pond@hotmail.com"));
-			message.setSubject("Testing Subject");
-			message.setText("Dear Mail Crawler," + "\n\n No spam to my email, please!");
-
+			message.setFrom(new InternetAddress(email.getSendFrom()));
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email.getSendTo()));
+			message.setSubject(email.getSubject());
 			Multipart multipart = new MimeMultipart();
-			
+			BodyPart messageBodyPath = new MimeBodyPart();
+			messageBodyPath.setText(email.getContent());
+			multipart.addBodyPart(messageBodyPath);
 			for (MultipartFile multipartFile : files) {
 				try {
-					
-					BodyPart messageBodyPath = new MimeBodyPart();
-					
+					messageBodyPath = new MimeBodyPart();
 					ByteArrayDataSource bds = new ByteArrayDataSource(multipartFile.getBytes(), multipartFile.getContentType());
 					messageBodyPath.setDataHandler(new DataHandler(bds));
 					messageBodyPath.setFileName(multipartFile.getOriginalFilename());
-					
 					multipart.addBodyPart(messageBodyPath);
-					
-					
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				
 			}
-			
 			message.setContent(multipart);  	
-			
-			
 			Transport.send(message);
-
-			System.out.println("Done");
-
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
 		}
