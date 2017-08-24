@@ -16,11 +16,11 @@ public class EmailRestcontroller {
 
 	@Autowired
 	EmailService emailservice ;
-	
+
 	@RequestMapping(path="send", method=RequestMethod.POST)
 	public void sendEmail(@RequestParam("files") MultipartFile[] files, @RequestParam("username") String username,
 			@RequestParam("password") String password, @RequestParam("content") String content, @RequestParam("sendFrom") String sendFrom,
-			@RequestParam("sendTo") String sendTo, @RequestParam("subject") String subject) {
+			@RequestParam("sendTo") String sendTo, @RequestParam("subject") String subject, @RequestParam("docCodes") String[] docCodes) {
 		
 		Email email = new Email() ;
 		email.setUsername(username);
@@ -30,7 +30,11 @@ public class EmailRestcontroller {
 		email.setSendTo(sendTo);
 		email.setSubject(subject);
 		
-		emailservice.sendMail(files, email);
+		try {
+			emailservice.sendMail(files, email, docCodes);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 	

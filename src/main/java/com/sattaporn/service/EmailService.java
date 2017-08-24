@@ -6,6 +6,6 @@ import com.sattaporn.model.Email;
 
 public interface EmailService {
 
-	public void sendMail(MultipartFile[] files, Email email) ;
+	public void sendMail(MultipartFile[] files, Email email, String[] docCodes) throws Exception;
 	
 }
