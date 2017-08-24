@@ -44,7 +44,7 @@ public class VerifyTokenFilter extends GenericFilterBean {
 			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 		} finally {
 			SecurityContextHolder.getContext().setAuthentication(null);
-			return; // always return void
+			return;
 		}
 	}
 }

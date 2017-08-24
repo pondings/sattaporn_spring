@@ -52,8 +52,7 @@ public class GenerateTokenForUserFilter extends AbstractAuthenticationProcessing
 			final UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username,
 					password);
 
-			return getAuthenticationManager().authenticate(authToken); // This will take to successfulAuthentication or
-																		// faliureAuthentication function
+			return getAuthenticationManager().authenticate(authToken); 
 		} catch (JSONException | AuthenticationException e) {
 			throw new AuthenticationServiceException(e.getMessage());
 		}

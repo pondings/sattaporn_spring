@@ -17,10 +17,11 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @Service
 public class TokenUtil {
 
-	private static final long VALIDITY_TIME_MS = 2 * 60 * 60 * 1000; // 2 hours validity
+//	private static final long VALIDITY_TIME_MS = 2 * 60 * 60 * 1000; // 2 hours validity
+	private static final long VALIDITY_TIME_MS = 30 * 60 * 1000; // 30 min validity
 	private static final String AUTH_HEADER_NAME = "Authorization";
 
-	private String secret = "mrin";
+	private String secret = "8b2925a4fae063f338afc481cacc3351";
 
 	public Optional<Authentication> verifyToken(HttpServletRequest request) {
 		final String token = request.getHeader(AUTH_HEADER_NAME);
