@@ -3,6 +3,7 @@ package com.sattaporn.repository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sattaporn.dto.DocumentationDTO;
 import com.sattaporn.model.Documentation;
 
 import java.util.List;
@@ -28,5 +29,9 @@ public interface DocumentationRepository extends CrudRepository<Documentation,In
 	
 	@Query("SELECT doc FROM Documentation doc LEFT JOIN FETCH doc.customer WHERE doc.customer.id = :#{#param}")
 	public List<Documentation> findByCustomerId(@Param("param") int id);
+	
+	@Query("SELECT doc FROM Documentation doc LEFT JOIN FETCH doc.customer "
+			+ "WHERE doc.customer.code = :#{#param.customer.code} AND doc.name LIKE %:#{#param.searchKeyword == null ? '' : #param.searchKeyword}%")
+	public List<Documentation> findByDocumentNameAndCustomerCode(@Param("param") DocumentationDTO documentation);
 	
 }
