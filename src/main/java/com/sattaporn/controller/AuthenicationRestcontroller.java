@@ -17,6 +17,7 @@ import com.sattaporn.dto.SessionItem;
 import com.sattaporn.dto.response.SessionResponse;
 import com.sattaporn.model.User;
 import com.sattaporn.repository.UserRepository;
+import com.sattaporn.service.UserService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiResponse;
@@ -29,6 +30,9 @@ public class AuthenicationRestcontroller {
 
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	UserService userService;
 	
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Will return a security token, which must be passed in every request", response = SessionResponse.class) })
 	@RequestMapping(value="login", method=RequestMethod.POST)
@@ -55,13 +59,13 @@ public class AuthenicationRestcontroller {
 		
 	}
 	
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Check for user permission every menu has clicked", response = PermissionAccessDTO.class) })
 	@RequestMapping(value="permission", method=RequestMethod.POST)
-	public PermissionAccessDTO test(@RequestBody PermissionAccessDTO permissionAccessDTO) {
+	public PermissionAccessDTO checkPermission(@RequestBody PermissionAccessDTO permissionAccessDTO) {
 		permissionAccessDTO.setMenuName(permissionAccessDTO.getMenuName().replace("/", ""));
 		PermissionAccessDTO permission = new PermissionAccessDTO();
-		System.out.println("i will find ! " + permissionAccessDTO.getMenuName());
 		try {
-			permission = userRepository.checkPermission(permissionAccessDTO);
+			permission = userService.checkPermission(permissionAccessDTO);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
