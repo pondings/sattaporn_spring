@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sattaporn.dto.Login;
 import com.sattaporn.dto.OperationResponse.ResponseStatusEnum;
+import com.sattaporn.dto.PermissionAccessDTO;
 import com.sattaporn.dto.SessionItem;
 import com.sattaporn.dto.response.SessionResponse;
 import com.sattaporn.model.User;
@@ -52,6 +53,19 @@ public class AuthenicationRestcontroller {
 		
 		return sessionResponse;
 		
+	}
+	
+	@RequestMapping(value="permission", method=RequestMethod.POST)
+	public PermissionAccessDTO test(@RequestBody PermissionAccessDTO permissionAccessDTO) {
+		permissionAccessDTO.setMenuName(permissionAccessDTO.getMenuName().replace("/", ""));
+		PermissionAccessDTO permission = new PermissionAccessDTO();
+		System.out.println("i will find ! " + permissionAccessDTO.getMenuName());
+		try {
+			permission = userRepository.checkPermission(permissionAccessDTO);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return permission;
 	}
 
 	

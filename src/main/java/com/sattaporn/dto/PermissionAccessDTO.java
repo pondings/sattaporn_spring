@@ -7,6 +7,21 @@ public class PermissionAccessDTO {
 	private String permission;
 	private String menuName;
 	
+	public PermissionAccessDTO(int id, int userId, String permission, String menuName) {
+		this.id = id;
+		this.userId = userId;
+		this.permission = permission;
+		this.menuName = menuName;
+	}
+	
+	
+	
+	public PermissionAccessDTO() {
+		super();
+	}
+
+
+
 	public int getId() {
 		return id;
 	}

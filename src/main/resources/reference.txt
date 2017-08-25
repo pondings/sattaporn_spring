@@ -1,2 +1,5 @@
 JWT Auth
 https://github.com/mrin9/Angular-SpringBoot-REST-JWT
+
+Permission Design
+https://softwareengineering.stackexchange.com/questions/206388/storing-menu-items-with-user-permissions
