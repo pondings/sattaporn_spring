@@ -2,11 +2,15 @@ package com.sattaporn.model;
 // Generated Aug 25, 2017 10:12:41 AM by Hibernate Tools 5.2.5.Final
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -28,13 +32,13 @@ public class User implements java.io.Serializable {
 	private String code;
 	private String username;
 	private String password = "";
-	private Integer empId;
 	private Date createDate;
 	private String createBy;
 	private Date updateDate;
 	private String updateBy;
 	private Boolean isActive;
 	private Boolean isBlocked;
+	private Set userRoles = new HashSet(0);
 
 	public User() {
 	}
@@ -43,19 +47,19 @@ public class User implements java.io.Serializable {
 		this.employee = employee;
 	}
 
-	public User(Employee employee, String code, String username, String password, Integer empId, Date createDate,
-			String createBy, Date updateDate, String updateBy, Boolean isActive, Boolean isBlocked) {
+	public User(Employee employee, String code, String username, String password, Date createDate,
+			String createBy, Date updateDate, String updateBy, Boolean isActive, Boolean isBlocked, Set userRoles) {
 		this.employee = employee;
 		this.code = code;
 		this.username = username;
 		this.password = password;
-		this.empId = empId;
 		this.createDate = createDate;
 		this.createBy = createBy;
 		this.updateDate = updateDate;
 		this.updateBy = updateBy;
 		this.isActive = isActive;
 		this.isBlocked = isBlocked;
+		this.userRoles = userRoles;
 	}
 
 	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "employee"))
@@ -106,15 +110,6 @@ public class User implements java.io.Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	@Column(name = "emp_id")
-	public Integer getEmpId() {
-		return this.empId;
-	}
-
-	public void setEmpId(Integer empId) {
-		this.empId = empId;
 	}
 
 	@Temporal(TemporalType.DATE)
@@ -171,6 +166,15 @@ public class User implements java.io.Serializable {
 
 	public void setIsBlocked(Boolean isBlocked) {
 		this.isBlocked = isBlocked;
+	}
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", targetEntity=UserRole.class)
+	public Set getUserRoles() {
+		return this.userRoles;
+	}
+
+	public void setUserRoles(Set userRoles) {
+		this.userRoles = userRoles;
 	}
 
 }
