@@ -10,9 +10,7 @@ public class TokenUser extends org.springframework.security.core.userdetails.Use
 
 	// For returning a normal user
 	public TokenUser(User user) {
-		super(user.getId(), user.getPassword(), AuthorityUtils.createAuthorityList("USER"));
-		// super(user.getUserName(), user.getPassword(), true, true, true, true,
-		// AuthorityUtils.createAuthorityList(user.getRole().toString()));
+		super(user.getUsername(), user.getPassword(), AuthorityUtils.createAuthorityList("USER"));
 		this.user = user;
 	}
 

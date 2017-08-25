@@ -39,12 +39,9 @@ public class TokenUtil {
 	// Get User Info from the Token
 	public TokenUser parseUserFromToken(String token) {
 		Claims claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
-
+		String username = (String)claims.get("username");
 		User user = new User();
-		user.setId((String) claims.get("id"));
-		// user.setCustomerId((Integer)claims.get("customerId"));
-		// user.setRole((String)claims.get("role"));
-		user.setRole("USER");
+		user.setUsername(username);
 		return new TokenUser(user);
 	}
 
@@ -54,7 +51,7 @@ public class TokenUtil {
 
 	public String createTokenForUser(User user) {
 		return Jwts.builder().setExpiration(new Date(System.currentTimeMillis() + VALIDITY_TIME_MS))
-				.setSubject(user.getName()).claim("id", user.getId())
+				.setSubject(user.getEmployee().getName()).claim("username", user.getUsername())
 				.claim("role", "USER").signWith(SignatureAlgorithm.HS256, secret).compact();
 	}
 

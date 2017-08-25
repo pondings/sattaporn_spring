@@ -47,8 +47,6 @@ public class GenerateTokenForUserFilter extends AbstractAuthenticationProcessing
 			JSONObject userJSON = new JSONObject(jsonString);
 			String username = userJSON.getString("username");
 			String password = userJSON.getString("password");
-			// final UsernamePasswordAuthenticationToken loginToken = new
-			// UsernamePasswordAuthenticationToken("demo", "demo");
 			final UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username,
 					password);
 
@@ -70,10 +68,9 @@ public class GenerateTokenForUserFilter extends AbstractAuthenticationProcessing
 		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 		String tokenString = this.tokenUtil.createTokenForUser(tokenUser);
 
-		respItem.setFirstName(tokenUser.getUser().getName());
-		respItem.setLastName(tokenUser.getUser().getLname());
-		respItem.setId(tokenUser.getUser().getId());
-		respItem.setEmail(tokenUser.getUser().getEmail());
+		respItem.setFullName(tokenUser.getUser().getEmployee().getFullName());
+		respItem.setId(String.valueOf(tokenUser.getUser().getId()));
+		respItem.setEmail(tokenUser.getUser().getEmployee().getEmail());
 		respItem.setToken(tokenString);
 
 		resp.setOperationStatus(ResponseStatusEnum.SUCCESS);
@@ -83,12 +80,9 @@ public class GenerateTokenForUserFilter extends AbstractAuthenticationProcessing
 
 		response.setStatus(HttpServletResponse.SC_OK);
 		response.getWriter().write(jsonRespString);
-		// res.getWriter().write(jsonResp.toString());
 		response.getWriter().flush();
 		response.getWriter().close();
 
-		// DONT call supper as it contine the filter chain
-		// super.successfulAuthentication(req, res, chain, authResult);
 
 	}
 	

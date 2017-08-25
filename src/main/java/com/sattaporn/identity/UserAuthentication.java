@@ -8,6 +8,10 @@ import org.springframework.security.core.GrantedAuthority;
 
 public class UserAuthentication implements Authentication  {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4722143749498341481L;
 	private final TokenUser user;
     private boolean authenticated = true;
 	
