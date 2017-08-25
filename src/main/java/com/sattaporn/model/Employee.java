@@ -1,9 +1,11 @@
 package com.sattaporn.model;
-// Generated Aug 7, 2017 7:44:38 AM by Hibernate Tools 5.2.3.Final
+// Generated Aug 25, 2017 10:12:41 AM by Hibernate Tools 5.2.5.Final
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -13,15 +15,13 @@ import javax.persistence.Table;
 @Table(name = "employee", schema = "public")
 public class Employee implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private int id;
 	private String name;
 	private String lname;
 	private String sirName;
 	private String fullName;
+	private String email;
+	private User user;
 
 	public Employee() {
 	}
@@ -30,12 +30,14 @@ public class Employee implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public Employee(int id, String name, String lname, String sirName, String fullName) {
+	public Employee(int id, String name, String lname, String sirName, String fullName, String email, User user) {
 		this.id = id;
 		this.name = name;
 		this.lname = lname;
 		this.sirName = sirName;
 		this.fullName = fullName;
+		this.email = email;
+		this.user = user;
 	}
 
 	@Id
@@ -83,6 +85,24 @@ public class Employee implements java.io.Serializable {
 
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
+	}
+
+	@Column(name = "email")
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "employee")
+	public User getUser() {
+		return this.user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }
